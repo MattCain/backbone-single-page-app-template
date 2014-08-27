@@ -1,18 +1,13 @@
 var App = App || {};
 App.classes = App.classes || {};
 
-App.classes.IndexView = Backbone.View.extend({
+App.classes.IndexView = App.classes.BaseView.extend({
 	el: '#content',
 	template: App.templates.index,
 	// This is a totally static page, so lets render here, no need for a seperate render function.
 	// Data will be empty but this is just an example :)
 	initialize: function(data) {
 		'use strict';
-		this.$el.html(this.template(data));
+		this.render(data);
 	}
-});
-
-// The about view is basically the same as the index view.
-App.classes.AboutView = App.classes.IndexView.extend({
-	template: App.templates.about
 });
