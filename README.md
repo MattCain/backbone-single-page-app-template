@@ -5,20 +5,19 @@ This is a barebones template for a single page app using Backbone.js
 
 It uses:
 
-*Backbone
-*jQuery
-*Underscore
-*Handlebars
-*Bootstrap
-*SCSS
-*Grunt
-*Bower
+* Backbone
+* jQuery
+* Underscore
+* Handlebars
+* Bootstrap
+* SCSS
+* Grunt
+* Bower
 
-Cool grunt stuff:
-*rev for cache busting static assets
-*Handlebars templates are pre compiled
-*watch for recompiling SCSS and hbs templates when you make a change
-*livereload for reloading the page when you make a change
+Cool grunt stuff used:
+* Everything from yo webapp
+* Handlebars templates are pre compiled
+* Handlebars templates added to watch and livereload, so changing a templates triggers a recompile and a page reload.
 
 
 ### Installation
