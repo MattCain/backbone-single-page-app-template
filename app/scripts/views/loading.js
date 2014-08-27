@@ -1,8 +1,3 @@
-/*!
- * Copyright (c) 2014 Matt Cain (Twitter:@CainCode, Github:@MattCain)
- * Licensed under The MIT License.
- */
-
 var App = App || {};
 App.classes = App.classes || {};
 
