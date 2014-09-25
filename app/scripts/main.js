@@ -15,7 +15,12 @@ App.switchView = function(ViewClass, data) {
     // Show the loading view.
     App.activeView = new App.classes.LoadingView();
 
-    // If the viewclass given is valid, then instantiate it and set it as active.
+    // If the ViewClass doesn't exist, put out a 404 view if it exists.
+    if (!ViewClass && App.classes['NotfoundView']) {
+        ViewClass = App.classes['NotfoundView'];
+    }
+
+    // instantiate ViewClass and set it as active.
     if (ViewClass) {
         App.activeView = new ViewClass(data);
 
