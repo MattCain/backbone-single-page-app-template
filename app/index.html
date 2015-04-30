@@ -11,6 +11,7 @@
         <meta name="viewport" content="width=device-width">
         <!-- Place favicon.ico and apple-touch-icon.png in the root directory -->
         <!-- build:css(.tmp) styles/main.css -->
+        <link rel="stylesheet" href="bower_components/semantic-ui/dist/semantic.css">
         <link rel="stylesheet" href="styles/main.css">
         <!-- endbuild -->
         <!-- build:js scripts/vendor/modernizr.js -->
@@ -19,27 +20,31 @@
     </head>
     <body>
         <!--[if lt IE 10]>
-            <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p>
+            <div class="ui container warning message">
+                <i class="close icon"></i>
+                <div class="header">
+                    You are using an <strong>outdated</strong> browser!
+                </div>
+                Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.
+            </div>
         <![endif]-->
 
-        <div class="container">
-            <div class="header">
-                <ul class="nav nav-pills pull-right">
-                    <li><a href="#">Home</a></li>
-                    <li><a href="#about">About</a></li>
-                    <li><a href="#contact">Contact</a></li>
-                </ul>
-                <h3 class="text-muted">backbone single page app template</h3>
+        <header id="header" class="segment">
+            <h1>Backbone Single Page App Template</h1>
+        </header>
+
+        <div id="main" class="ui stackable page grid">
+            <div class="two column centered row">
+                <div id="navigation" class="column four wide"></div>
+
+                <div id="content-area" class="column twelve wide">
+                    <div id="content"></div>
+                </div>
             </div>
+        </div>
 
-            <div id="content">
-            </div>
-
-
-            <div class="footer">
-                <p>♥ from the Yeoman team</p>
-            </div>
-
+        <div id="footer" class="segment">
+            <p>Footer</p>
         </div>
 
         <!-- build:js scripts/dependencies.js -->
@@ -47,33 +52,28 @@
         <script src="bower_components/underscore/underscore.js"></script>
         <script src="bower_components/handlebars/handlebars.js"></script>
         <script src="bower_components/backbone/backbone.js"></script>
+        <script src="bower_components/marionette/lib/backbone.marionette.js"></script>
         <!-- endbuild -->
 
-        <!-- Put these into the dependencies block above if you want. Or use a CDN hosted bundle.  -->
         <!-- build:js scripts/plugins.js -->
-        <script src="bower_components/sass-bootstrap/js/affix.js"></script>
-        <script src="bower_components/sass-bootstrap/js/alert.js"></script>
-        <script src="bower_components/sass-bootstrap/js/dropdown.js"></script>
-        <script src="bower_components/sass-bootstrap/js/tooltip.js"></script>
-        <script src="bower_components/sass-bootstrap/js/modal.js"></script>
-        <script src="bower_components/sass-bootstrap/js/transition.js"></script>
-        <script src="bower_components/sass-bootstrap/js/button.js"></script>
-        <script src="bower_components/sass-bootstrap/js/popover.js"></script>
-        <script src="bower_components/sass-bootstrap/js/carousel.js"></script>
-        <script src="bower_components/sass-bootstrap/js/scrollspy.js"></script>
-        <script src="bower_components/sass-bootstrap/js/collapse.js"></script>
-        <script src="bower_components/sass-bootstrap/js/tab.js"></script>
+        <script src="bower_components/semantic-ui/dist/semantic.js"></script>
         <!-- endbuild -->
 
         <!-- build:js scripts/main.js -->
+        <script src="scripts/App.js"></script>
         <script src="scripts/templates.js"></script>
-        <script src="scripts/views/base.js"></script>
-        <script src="scripts/views/index.js"></script>
-        <script src="scripts/views/loading.js"></script>
-        <script src="scripts/views/notfound.js"></script>
-        <script src="scripts/views/about.js"></script>
-        <script src="scripts/views/contact.js"></script>
-        <script src="scripts/main.js"></script>
+        
+        <script src="scripts/MainViewController.js"></script>
+
+        <script src="scripts/views/MainView.js"></script>
+        <script src="scripts/views/NavigationView.js"></script>
+        <script src="scripts/views/LoadingView.js"></script>
+        <script src="scripts/views/NotFoundView.js"></script>
+        <script src="scripts/views/IndexView.js"></script>
+        <script src="scripts/views/AboutView.js"></script>
+        <script src="scripts/views/ContactView.js"></script>
+
+        <script>App.start()</script>
         <!-- endbuild -->
 
         <!-- Google Analytics: change UA-XXXXX-X to be your site's ID. -->

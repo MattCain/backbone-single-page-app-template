@@ -6,19 +6,23 @@
 
 module.exports = (grunt) ->
     # show elapsed time at the end
-    require('time-grunt')(grunt);
+    require('time-grunt')(grunt)
     # load all grunt tasks
-    require('load-grunt-tasks')(grunt);
+    require('load-grunt-tasks')(grunt)
 
     grunt.initConfig(
         # configurable paths
         yeoman:
             app: 'app',
             dist: 'dist'
+
         watch:
-            compass:
-                files: ['<%= yeoman.app %>/styles/{,*/}*.{scss,sass}']
-                tasks: ['compass:server', 'autoprefixer']
+            less:
+                files: ['<%= yeoman.app %>/styles/{,*/}*.less']
+                tasks: ['less', 'autoprefixer']
+            coffee:
+                files: ['<%= yeoman.app %>/coffee/{,*/}*.coffee']
+                tasks: ['coffee:server', 'coffeelint:server']
             styles:
                 files: ['<%= yeoman.app %>/styles/{,*/}*.css']
                 tasks: ['copy:styles', 'autoprefixer']
@@ -29,11 +33,13 @@ module.exports = (grunt) ->
                     '<%= yeoman.app %>/*.html',
                     '.tmp/styles/{,*/}*.css',
                     '{.tmp,<%= yeoman.app %>}/scripts/{,*/}*.js',
+                    '<%= yeoman.app %>/coffee/{,*/}*.coffee',
                     '<%= yeoman.app %>/images/{,*/}*.{gif,jpeg,jpg,png,svg,webp}'
                 ]
             handlebars:
                 files: '{.tmp,<%= yeoman.app %>}/templates/{,*/}*.hbs'
                 tasks: ['handlebars:server']
+
         connect:
             options:
                 port: 9001
@@ -59,6 +65,7 @@ module.exports = (grunt) ->
                     open: true
                     base: '<%= yeoman.dist %>'
                     livereload: false
+
         clean:
             dist:
                 files: [
@@ -70,41 +77,22 @@ module.exports = (grunt) ->
                     ]
                 ]
             server: '.tmp'
-        jshint:
-            options:
-                jshintrc: '.jshintrc'
-                reporter: require('jshint-stylish')
-            all: [
-                'Gruntfile.js',
-                '<%= yeoman.app %>/scripts/{,*/}*.js',
-                '!<%= yeoman.app %>/scripts/vendor/*',
-                'test/spec/{,*/}*.js'
-            ]
+
         mocha:
             all:
                 options:
                     run: true
                     urls: ['http://<%= connect.test.options.hostname %>:<%= connect.test.options.port %>/index.html']
-        compass:
-            options:
-                sassDir: '<%= yeoman.app %>/styles'
-                cssDir: '.tmp/styles'
-                generatedImagesDir: '.tmp/images/generated'
-                imagesDir: '<%= yeoman.app %>/images'
-                javascriptsDir: '<%= yeoman.app %>/scripts'
-                fontsDir: '<%= yeoman.app %>/styles/fonts'
-                importPath: '<%= yeoman.app %>/bower_components'
-                httpImagesPath: '/images'
-                httpGeneratedImagesPath: '/images/generated'
-                httpFontsPath: '/styles/fonts'
-                relativeAssets: false
-                assetCacheBuster: false
-            dist:
-                options:
-                    generatedImagesDir: '<%= yeoman.dist %>/images/generated'
-            server:
-                options:
-                    debugInfo: true
+        less:
+            all:
+                files: [
+                   expand: true
+                   cwd: "<%= yeoman.app %>/styles"
+                   src: ["*.less"]
+                   dest: ".tmp/styles/"
+                   ext: ".css"
+                ]
+
         autoprefixer:
             options:
                 browsers: ['last 1 version']
@@ -115,10 +103,12 @@ module.exports = (grunt) ->
                     src: '{,*/}*.css'
                     dest: '.tmp/styles/'
                 ]
+        
         'bower-install':
             app:
                 html: '<%= yeoman.app %>/index.html'
                 ignorePath: '<%= yeoman.app %>/'
+
         rev:
             dist:
                 files:
@@ -128,10 +118,12 @@ module.exports = (grunt) ->
                         '<%= yeoman.dist %>/images/{,*/}*.{gif,jpeg,jpg,png,webp}',
                         '<%= yeoman.dist %>/styles/fonts/{,*/}*.*'
                     ]
+
         useminPrepare:
             options:
                 dest: '<%= yeoman.dist %>'
             html: '<%= yeoman.app %>/index.html'
+
         usemin:
             options:
                 assetsDirs: ['<%= yeoman.dist %>', '<%= yeoman.dist %>/images']
@@ -142,6 +134,7 @@ module.exports = (grunt) ->
             html: ['<%= yeoman.dist %>/{,*/}*.html']
             css: ['<%= yeoman.dist %>/styles/{,*/}*.css']
             js: ['<%= yeoman.dist %>/scripts/{,*/}*.js']
+
         imagemin:
             dist:
                 files: [
@@ -150,6 +143,7 @@ module.exports = (grunt) ->
                     src: '{,*/}*.{gif,jpeg,jpg,png}'
                     dest: '<%= yeoman.dist %>/images'
                 ]
+
         svgmin:
             dist:
                 files: [
@@ -158,15 +152,16 @@ module.exports = (grunt) ->
                     src: '{,*/}*.svg'
                     dest: '<%= yeoman.dist %>/images'
                 ]
+
         htmlmin:
             dist:
-                
                 files: [
                     expand: true
                     cwd: '<%= yeoman.app %>'
                     src: '*.html'
                     dest: '<%= yeoman.dist %>'
                 ]
+
         # Put files not handled in other tasks here
         copy:
             dist:
@@ -189,6 +184,7 @@ module.exports = (grunt) ->
                 cwd: '<%= yeoman.app %>/styles'
                 dest: '.tmp/styles/'
                 src: '{,*/}*.css'
+
         modernizr:
             devFile: '<%= yeoman.app %>/bower_components/modernizr/modernizr.js'
             outputFile: '<%= yeoman.dist %>/bower_components/modernizr/modernizr.js'
@@ -198,6 +194,7 @@ module.exports = (grunt) ->
                 '!<%= yeoman.dist %>/scripts/vendor/*'
             ],
             uglify: true
+
         handlebars:
             server:
                 options:
@@ -222,22 +219,57 @@ module.exports = (grunt) ->
 
                     # Remove template whitespace from the js file.
                     processContent: (content) ->
-                        content.replace(/\s{2,}/g, ' ').replace(new RegExp( '\\>[\n\t ]+\\<' , 'g' ) , '><');
+                        content.replace(/\s{2,}/g, ' ').replace(new RegExp( '\\>[\n\t ]+\\<' , 'g' ) , '><')
 
                 files:
                     '.tmp/scripts/templates.js': '<%= yeoman.app %>/templates/index/*.hbs'
+        
+        coffee:
+            server:
+                expand: true
+                flatten: false
+                cwd: '<%= yeoman.app %>/coffee'
+                src: ['{,*/}*.coffee']
+                dest: '<%= yeoman.app %>/scripts'
+                ext: '.js'
+            dist:
+                expand: true
+                flatten: false
+                cwd: '<%= yeoman.app %>/coffee'
+                src: ['{,*/}*.coffee']
+                dest: '<%= yeoman.dist %>/scripts'
+                ext: '.js'
+
+        coffeelint:
+            options:
+                indentation:
+                    value: 4
+                max_line_length:
+                    value: 120
+            server:
+                options:
+                    force: true
+                files:
+                    src: ['coffee/*.coffee', 'Gruntfile.coffee']
+
+            dist: ['coffee/*.coffee', 'Gruntfile.coffee']
+
         concurrent:
             server: [
-                'compass',
+                'less',
                 'copy:styles',
+                'coffeelint:server',
+                'coffee:server',
                 'handlebars:server'
             ]
             test: [
                 'copy:styles'
             ]
             dist: [
-                'compass',
+                'less',
                 'copy:styles',
+                'coffeelint:dist',
+                'coffee:dist',
                 'imagemin',
                 'svgmin',
                 'htmlmin'
