@@ -6,18 +6,18 @@ This is a barebones template for a single page app using Backbone.js
 It uses:
 
 * Backbone
-* jQuery
-* Underscore
+* Marionette
 * Handlebars
-* Bootstrap
-* SCSS
+* Semantic-ui
+* Less
+* Coffeescript
 * Grunt
 * Bower
 
 Cool grunt stuff used:
-* Everything from yo webapp
 * Handlebars templates are pre compiled
 * Handlebars templates added to watch and livereload, so changing a templates triggers a recompile and a page reload.
+* Coffeelint-ing
 
 
 ### Installation

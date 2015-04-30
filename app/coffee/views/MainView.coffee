@@ -2,7 +2,7 @@ class App.MainView extends Marionette.LayoutView
 
     el: "#main"
 
-    regions: 
+    regions:
         navigation: "#navigation"
         content: "#content"
 

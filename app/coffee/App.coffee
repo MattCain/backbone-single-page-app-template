@@ -12,5 +12,5 @@ App.addInitializer( ->
             "contact": "showContactView"
     )
 
-    Backbone.history?.start();
+    Backbone.history?.start()
 )

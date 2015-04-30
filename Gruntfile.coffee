@@ -250,9 +250,9 @@ module.exports = (grunt) ->
                 options:
                     force: true
                 files:
-                    src: ['coffee/*.coffee', 'Gruntfile.coffee']
+                    src: ['<%= yeoman.app %>/coffee/{,*/}*.coffee', 'Gruntfile.coffee']
 
-            dist: ['coffee/*.coffee', 'Gruntfile.coffee']
+            dist: ['coffee/{,*/}*.coffee', 'Gruntfile.coffee']
 
         concurrent:
             server: [
