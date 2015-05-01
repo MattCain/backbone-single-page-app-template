@@ -15,8 +15,8 @@ It uses:
 * Bower
 
 Cool grunt stuff used:
+* All assets are watch-ed and livereload-ed.
 * Handlebars templates are pre compiled
-* Handlebars templates added to watch and livereload, so changing a templates triggers a recompile and a page reload.
 * Coffeelint-ing
 
 
